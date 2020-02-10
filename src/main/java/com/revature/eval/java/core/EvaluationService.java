@@ -3,6 +3,7 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 public class EvaluationService {
 
@@ -13,9 +14,17 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String reverse(String string) {
+	public String reverse(String input) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		if(input == null) {
+			return input;
+		}
+		String output = "";
+		for (int i = input.length()-1; i>=0; i-- ) {
+			output = output + input.charAt(i);
+			
+		}
+		return output;
 	}
 
 	/**
@@ -28,7 +37,14 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String acronym = "";
+		acronym = acronym + phrase.toUpperCase().charAt(0);
+		for (int i =1; i<=phrase.length()-1; i++ ) {
+			if (phrase.charAt(i-1) == ' ' || phrase.charAt(i-1) == '-') {
+			acronym = acronym + phrase.toUpperCase().charAt(i);
+			}
+		}
+      return acronym;
 	}
 
 	/**
@@ -82,16 +98,27 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
+			if(this.sideOne==this.sideTwo && this.sideOne==this.sideThree && this.sideTwo==this.sideThree) {
+				return true;
+			}
+			
 			return false;
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
+			if(this.sideOne==this.sideTwo || this.sideOne==this.sideThree || this.sideTwo==this.sideThree) {
+				return true;
+			}
+			
 			return false;
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
+			if(this.sideOne!=this.sideTwo && this.sideOne!=this.sideThree && this.sideTwo!=this.sideThree) {
+				return true;
+			}
 			return false;
 		}
 
@@ -114,7 +141,54 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		int Scrabble=0;
+		for (int i =0; i<=string.length()-1; i++ )
+		{
+			if(string.charAt(i)=='A' || string.charAt(i)=='a' || string.charAt(i)=='E' || string.charAt(i)=='e' ||
+			   string.charAt(i)=='I' || string.charAt(i)=='i' || string.charAt(i)=='O' || string.charAt(i)=='o' ||
+			   string.charAt(i)=='U' || string.charAt(i)=='u' || string.charAt(i)=='L' || string.charAt(i)=='l' ||
+			   string.charAt(i)=='N' || string.charAt(i)=='n' || string.charAt(i)=='R' || string.charAt(i)=='r' ||
+			   string.charAt(i)=='S' || string.charAt(i)=='s' || string.charAt(i)=='T' || string.charAt(i)=='t')
+					{
+					Scrabble=Scrabble+1;
+					}
+			
+			if(string.charAt(i)=='D' || string.charAt(i)=='d' || string.charAt(i)=='G' || string.charAt(i)=='g')
+					{
+					Scrabble=Scrabble+2;
+					}
+			
+			if(string.charAt(i)=='C' || string.charAt(i)=='c' || string.charAt(i)=='M' || string.charAt(i)=='m' ||
+					   string.charAt(i)=='P' || string.charAt(i)=='p')
+					{
+					Scrabble=Scrabble+3;
+					}
+			
+			if(string.charAt(i)=='F' || string.charAt(i)=='f' || string.charAt(i)=='H' || string.charAt(i)=='h' ||
+					   string.charAt(i)=='V' || string.charAt(i)=='v' || string.charAt(i)=='W' || string.charAt(i)=='w' ||
+					   string.charAt(i)=='Y' || string.charAt(i)=='y')
+					{
+					Scrabble=Scrabble+4;
+					}
+			
+			if(string.charAt(i)=='K' || string.charAt(i)=='k')
+			       {
+				    Scrabble=Scrabble+5;
+			       }
+			
+			if(string.charAt(i)=='J' || string.charAt(i)=='j' || string.charAt(i)=='X' || string.charAt(i)=='x')
+				   {
+					Scrabble=Scrabble+8;
+				   }	
+			
+			if(string.charAt(i)=='Q' || string.charAt(i)=='q' || string.charAt(i)=='Z' || string.charAt(i)=='z')
+				   {
+					Scrabble=Scrabble+10;
+				   }
+			}
+		
+		return Scrabble;
+		
 	}
 
 	/**
@@ -150,7 +224,26 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String temp = "";
+		String output = "";
+		for (int i = string.length()-1; i>=0 ; i--) {
+		if (string.charAt(i)=='1'||string.charAt(i)=='2'||string.charAt(i)=='3'||string.charAt(i)=='4'||
+				string.charAt(i)=='5'||string.charAt(i)=='6'||string.charAt(i)=='7'||string.charAt(i)=='8'||
+						string.charAt(i)=='9'||string.charAt(i)=='0') {
+			temp = string.charAt(i) + temp; 
+			if(temp.length()==10)
+				output=temp;
+			else if (temp.length()>11) 
+			throw new IllegalArgumentException();	
+			}
+		else if(string.charAt(i)==' ' || string.charAt(i)=='-' || string.charAt(i)=='(' ||
+				string.charAt(i)==')' || string.charAt(i)=='.'){
+			
+		}
+		else throw new IllegalArgumentException();
+		}
+		return output;	
+		
 	}
 
 	/**
@@ -164,7 +257,23 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		string=string.replace("\n", "");
+		String words[]=string.split("[ ,]");
+		Integer counter;
+	Map<String, Integer> NewMap=new HashMap<String, Integer>();
+		for (int i = 0; i < words.length; i++) {
+			counter=0;
+			for (int j = 0; j < words.length; j++)
+	    { 
+	    if (words[i].equals(words[j]))
+	    
+	        counter=counter+1; 
+	    }
+		
+		NewMap.put(words[i], counter);
+		
+		} 
+		return NewMap;
 	}
 
 	/**
@@ -199,7 +308,7 @@ public class EvaluationService {
 	 * 
 	 * A binary search halves the number of items to check with each iteration, so
 	 * locating an item (or determining its absence) takes logarithmic time. A
-	 * binary search is a dichotomic divide and conquer search algorithm.
+	 * b minary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
 	static class BinarySearch<T> {
@@ -207,8 +316,24 @@ public class EvaluationService {
 
 		public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
-			return 0;
-		}
+			int F = 0;
+			int L = sortedList.size() - 1; 
+	        while (F <= L) { 
+	            int m = F + (L - F) / 2;
+	            if (sortedList.get(m) == t) { 
+	                return m; 
+	            }
+	 
+	            if (sortedList.get(m) < t) {
+	               F = m + 1; 
+	            }
+	  
+	            else
+	                L = m - 1; 
+	        } 
+	        return 0; 
+	    } 
+	  
 
 		public BinarySearch(List<T> sortedList) {
 			super();
